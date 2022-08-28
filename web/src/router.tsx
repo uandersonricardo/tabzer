@@ -2,7 +2,9 @@ import React, { lazy, Suspense, useContext } from "react";
 
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
-import Loading from "./components/common/Loading";
+import AuthLoading from "./components/layout/AuthLoading";
+import Layout from "./components/layout/Layout";
+import Loading from "./components/layout/Loading";
 import { AuthContext } from "./contexts/Auth";
 
 const Home = lazy(async () => await import("./pages/Home"));
@@ -29,7 +31,7 @@ const Router: React.FC = () => {
             <Route
               path="/signup"
               element={
-                <Suspense fallback={<Loading />}>
+                <Suspense fallback={<AuthLoading />}>
                   <SignUp />
                 </Suspense>
               }
@@ -37,21 +39,23 @@ const Router: React.FC = () => {
             <Route
               path="/signin"
               element={
-                <Suspense fallback={<Loading />}>
+                <Suspense fallback={<AuthLoading />}>
                   <SignIn />
                 </Suspense>
               }
             />
           </>
         )}
-        <Route
-          path="/"
-          element={
-            <Suspense fallback={<Loading />}>
-              <Home />
-            </Suspense>
-          }
-        />
+        <Route element={<Layout />}>
+          <Route
+            index
+            element={
+              <Suspense fallback={<Loading />}>
+                <Home />
+              </Suspense>
+            }
+          />
+        </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>

@@ -163,7 +163,7 @@ const SignIn: React.FC = () => {
             <Box flex="1" h="1px" bg="gray.300" />
           </Flex>
           <Link to="/signup">
-            <Button w="full" size="lg" variant="outline">
+            <Button w="full" size="lg" colorScheme="gray">
               Criar usuário
             </Button>
           </Link>

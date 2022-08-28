@@ -10,6 +10,10 @@ const theme = extendTheme({
       "html, body, #root": {
         width: "100%",
         height: "100%"
+      },
+      "#root": {
+        display: "flex",
+        flexDirection: "column"
       }
     }
   },
