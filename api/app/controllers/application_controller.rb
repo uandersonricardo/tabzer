@@ -1,11 +1,12 @@
 class ApplicationController < ActionController::API
   def not_found
-    render json: { errors: ['Not found'] }, status: :not_found
+    render json: { errors: ["Not found"] }, status: :not_found
   end
 
   def authorize_request
-    header = request.headers['Authorization']
-    header = header.split(' ').last if header
+    header = request.headers["Authorization"]
+
+    header = header.split(" ").last if header
 
     begin
       @decoded = JsonWebToken.decode(header)

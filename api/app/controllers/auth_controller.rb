@@ -13,7 +13,7 @@ class AuthController < ApplicationController
         user: @user.as_json(except: [:password_digest, :created_at, :updated_at])
       }, status: :ok
     else
-      render json: { errors: ['User or password is invalid'] }, status: :unauthorized
+      render json: { errors: ["User or password is invalid"] }, status: :unauthorized
     end
   end
 

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :users, param: :id
-  get '/user', to: 'auth#me'
-  post '/signin', to: 'auth#login'
-  get '/*a', to: 'application#not_found'
+  get "/user", to: "auth#me"
+  post "/signin", to: "auth#login"
+  get "/*a", to: "application#not_found"
 end
