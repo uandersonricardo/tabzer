@@ -19,7 +19,9 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.34.2",
     "react-icons": "^4.4.0",
-    "react-router-dom": "6"
+    "react-router-dom": "6",
+    "slate": "^0.82.1",
+    "slate-react": "^0.82.1"
   },
   "devDependencies": {
     "@types/node": "^18.7.13",
