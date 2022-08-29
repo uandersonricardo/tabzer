@@ -10,6 +10,7 @@ import { AuthContext } from "./contexts/Auth";
 const Home = lazy(async () => await import("./pages/Home"));
 const SignIn = lazy(async () => await import("./pages/SignIn"));
 const SignUp = lazy(async () => await import("./pages/SignUp"));
+const Editor = lazy(async () => await import("./pages/Editor"));
 
 const Router: React.FC = () => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -17,16 +18,27 @@ const Router: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {isAuthenticated ? (
+        <Route element={<Layout />}>
+          {isAuthenticated && (
+            <Route
+              path="/editor"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Editor />
+                </Suspense>
+              }
+            />
+          )}
           <Route
-            path="/editor"
+            index
             element={
               <Suspense fallback={<Loading />}>
-                <SignIn />
+                <Home />
               </Suspense>
             }
           />
-        ) : (
+        </Route>
+        {!isAuthenticated && (
           <>
             <Route
               path="/signup"
@@ -46,16 +58,6 @@ const Router: React.FC = () => {
             />
           </>
         )}
-        <Route element={<Layout />}>
-          <Route
-            index
-            element={
-              <Suspense fallback={<Loading />}>
-                <Home />
-              </Suspense>
-            }
-          />
-        </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>

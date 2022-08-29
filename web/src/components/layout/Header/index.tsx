@@ -1,13 +1,26 @@
 import React, { useContext } from "react";
 
-import { Box, Button, Container, Flex, Image } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Flex,
+  Image,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuGroup,
+  MenuItem,
+  MenuList
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 import logo from "../../../assets/logo.svg";
 import { AuthContext } from "../../../contexts/Auth";
 
 const Header: React.FC = () => {
-  const { isAuthenticated, signOut } = useContext(AuthContext);
+  const { isAuthenticated, user, signOut } = useContext(AuthContext);
 
   return (
     <Box
@@ -28,9 +41,20 @@ const Header: React.FC = () => {
           <Image src={logo} alt="Logo" h="10" />
         </Link>
         {isAuthenticated ? (
-          <Button colorScheme="gray" onClick={signOut} size="sm">
-            Sair
-          </Button>
+          <Menu>
+            <MenuButton title={user?.name}>
+              <Avatar name={user?.name} h="10" w="10" />
+            </MenuButton>
+            <MenuList>
+              <Link to="/editor">
+                <MenuItem>Nova tablatura</MenuItem>
+              </Link>
+              <MenuDivider />
+              <MenuItem color="red.500" onClick={signOut}>
+                Sair
+              </MenuItem>
+            </MenuList>
+          </Menu>
         ) : (
           <Link to="/signin">
             <Button colorScheme="blue" size="sm">

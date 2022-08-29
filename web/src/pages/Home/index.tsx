@@ -9,11 +9,14 @@ import {
   MenuItemOption,
   MenuList,
   MenuOptionGroup,
-  Spacer
+  Spacer,
+  VStack
 } from "@chakra-ui/react";
 import { GiGuitarHead } from "react-icons/gi";
 import { IoMdMusicalNotes } from "react-icons/io";
 import { TbChevronDown } from "react-icons/tb";
+
+import SongItem from "../../components/home/SongItem";
 
 const instrumentOptions = [
   { value: "all", label: "Todos os instrumentos" },
@@ -49,7 +52,6 @@ const Home: React.FC = () => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      justifyContent="space-between"
     >
       <Flex align="center" w="full" gap="2" wrap="wrap">
         <Menu>
@@ -126,6 +128,30 @@ const Home: React.FC = () => {
           </MenuList>
         </Menu>
       </Flex>
+      <VStack spacing="6" w="full" mt="8">
+        <SongItem
+          id="1"
+          artist="Bring Me The Horizon"
+          difficulty="Intermediário"
+          genre="Rock"
+          instrument="Guitarra"
+          song="Happy Song"
+          tuning="Drop C"
+          version="Principal"
+          image="https://i0.wp.com/www.wikimetal.com.br/wp-content/uploads/2022/07/BringMeTheHorizon.jpg?resize=1170%2C658&ssl=1"
+        />
+        <SongItem
+          id="2"
+          artist="Avenged Sevenfold"
+          difficulty="Difícil"
+          genre="Rock"
+          instrument="Guitarra"
+          song="Afterlife"
+          tuning="Drop D"
+          version="Principal"
+          image="https://www.vagalume.com.br/avenged-sevenfold/images/avenged-sevenfold.jpg"
+        />
+      </VStack>
     </Container>
   );
 };

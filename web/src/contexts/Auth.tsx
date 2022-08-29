@@ -58,7 +58,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     if (fetchData) {
-      setUser(fetchData.user);
+      setUser(fetchData);
     }
   }, [fetchData]);
 
