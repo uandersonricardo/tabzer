@@ -23,15 +23,10 @@ const Header: React.FC = () => {
   const { isAuthenticated, user, signOut } = useContext(AuthContext);
 
   return (
-    <Box
-      as="header"
-      h="16"
-      borderBottom="1px solid"
-      borderBottomColor="gray.100"
-    >
+    <Box as="header" borderBottom="1px solid" borderBottomColor="gray.100">
       <Container
         maxW="7xl"
-        h="full"
+        h="16"
         px={{ base: "6", md: "12" }}
         display="flex"
         alignItems="center"

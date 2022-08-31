@@ -20,6 +20,8 @@ const initialValue: Descendant[] = [
   }
 ];
 
+const isToolbarEnabled = false;
+
 const TabEditor: React.FC<TabEditorProps> = () => {
   const [editor] = useState(() => withReact(createEditor()));
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -84,7 +86,7 @@ const TabEditor: React.FC<TabEditorProps> = () => {
 
   return (
     <Slate editor={editor} value={initialValue}>
-      <TabToolbar onOpenChords={onOpen} />
+      {isToolbarEnabled && <TabToolbar onOpenChords={onOpen} />}
       <ChordModal isOpen={isOpen} onClose={onClose} onSelect={onSelectChord} />
       <Editable
         renderElement={renderElement}
