@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :users, param: :id
+  resources :artists, param: :id
+  resources :songs, param: :id
+  resources :versions, param: :id
+
   get "/user", to: "auth#me"
   post "/signin", to: "auth#login"
   get "/*a", to: "application#not_found"
