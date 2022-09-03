@@ -1,16 +1,6 @@
 inherit_gem:
   rubocop-shopify: rubocop.yml
 
-AllCops:
-  Exclude:
-    - "db/**/*"
-    - "config/**/*"
-    - "script/**/*"
-    - "bin/*"
-    - "Gemfile"
-    - "Rakefile"
-    - !ruby/regexp /old_and_unused\.rb$/
-
 Layout/LineLength:
   Max: 100
 
@@ -34,3 +24,14 @@ Style/TrailingCommaInHashLiteral:
 
 Style/GlobalStdStream:
   Enabled: false
+
+AllCops:
+  Exclude:
+    - "db/**/*"
+    - "config/**/*"
+    - "script/**/*"
+    - "bin/*"
+    - "Gemfile"
+    - "Rakefile"
+    - !ruby/regexp /old_and_unused\.rb$/
+  NewCops: enable

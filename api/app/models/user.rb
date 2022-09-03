@@ -9,6 +9,6 @@ class User < ApplicationRecord
     if: -> { new_record? || !password.nil? }
 
   has_many :versions
-  
+
   default_scope { order(created_at: :asc) }
 end
