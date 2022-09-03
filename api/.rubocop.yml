@@ -11,6 +11,9 @@ AllCops:
     - "Rakefile"
     - !ruby/regexp /old_and_unused\.rb$/
 
+Layout/LineLength:
+  Max: 100
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
