@@ -16,33 +16,27 @@ import { GiGuitarHead } from "react-icons/gi";
 import { IoMdMusicalNotes } from "react-icons/io";
 import { TbChevronDown } from "react-icons/tb";
 
+import DifficultySelect from "../../components/common/DifficultySelect";
+import InstrumentSelect from "../../components/common/InstrumentSelect";
+import TuningSelect from "../../components/common/TuningSelect";
 import SongItem from "../../components/home/SongItem";
-
-const instrumentOptions = [
-  { value: "all", label: "Todos os instrumentos" },
-  { value: "guitar", label: "Violão" },
-  { value: "eletric-guitar", label: "Guitarra" }
-];
-
-const tuningOptions = [
-  { value: "all", label: "Todas as afinações" },
-  { value: "standard", label: "Padrão" },
-  { value: "drop-d", label: "Drop D" },
-  { value: "drop-c#", label: "Drop C#" },
-  { value: "drop-c", label: "Drop C" }
-];
-
-const difficultyOptions = [
-  { value: "all", label: "Qualquer dificuldade" },
-  { value: "beginner", label: "Iniciante" },
-  { value: "intermediate", label: "Intermediário" },
-  { value: "advanced", label: "Avançado" }
-];
 
 const Home: React.FC = () => {
   const [instrument, setInstrument] = useState("all");
   const [tuning, setTuning] = useState("all");
   const [difficulty, setDifficulty] = useState("all");
+
+  const onChangeInstrument = (value: string) => {
+    setInstrument(value);
+  };
+
+  const onChangeTuning = (value: string) => {
+    setTuning(value);
+  };
+
+  const onChangeDifficulty = (value: string) => {
+    setDifficulty(value);
+  };
 
   return (
     <Container
@@ -54,79 +48,14 @@ const Home: React.FC = () => {
       alignItems="center"
     >
       <Flex align="center" w="full" gap="2" wrap="wrap">
-        <Menu>
-          <MenuButton
-            as={Button}
-            rightIcon={<TbChevronDown />}
-            size="sm"
-            variant="outline"
-          >
-            <GiGuitarHead />
-          </MenuButton>
-          <MenuList>
-            <MenuOptionGroup value={instrument} type="radio">
-              {instrumentOptions.map(option => (
-                <MenuItemOption
-                  key={option.value}
-                  value={option.value}
-                  onClick={() => setInstrument(option.value)}
-                >
-                  {option.label}
-                </MenuItemOption>
-              ))}
-            </MenuOptionGroup>
-          </MenuList>
-        </Menu>
-        <Menu>
-          <MenuButton
-            as={Button}
-            rightIcon={<TbChevronDown />}
-            size="sm"
-            variant="outline"
-          >
-            <IoMdMusicalNotes />
-          </MenuButton>
-          <MenuList>
-            <MenuOptionGroup value={tuning} type="radio">
-              {tuningOptions.map(option => (
-                <MenuItemOption
-                  key={option.value}
-                  value={option.value}
-                  onClick={() => setTuning(option.value)}
-                >
-                  {option.label}
-                </MenuItemOption>
-              ))}
-            </MenuOptionGroup>
-          </MenuList>
-        </Menu>
+        <InstrumentSelect
+          onChange={onChangeInstrument}
+          withAll
+          showText={false}
+        />
+        <TuningSelect onChange={onChangeTuning} withAll showText={false} />
         <Spacer />
-        <Menu>
-          <MenuButton
-            as={Button}
-            rightIcon={<TbChevronDown />}
-            size="sm"
-            variant="outline"
-          >
-            {
-              difficultyOptions.find(option => option.value === difficulty)
-                ?.label
-            }
-          </MenuButton>
-          <MenuList>
-            <MenuOptionGroup defaultValue={difficulty} type="radio">
-              {difficultyOptions.map(option => (
-                <MenuItemOption
-                  key={option.value}
-                  value={option.value}
-                  onClick={() => setDifficulty(option.value)}
-                >
-                  {option.label}
-                </MenuItemOption>
-              ))}
-            </MenuOptionGroup>
-          </MenuList>
-        </Menu>
+        <DifficultySelect onChange={onChangeDifficulty} withAll />
       </Flex>
       <VStack spacing="6" w="full" mt="8">
         <SongItem

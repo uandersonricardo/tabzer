@@ -1,48 +1,38 @@
 import React, { useContext, useState } from "react";
 
-import {
-  Button,
-  Container,
-  Flex,
-  Heading,
-  Input,
-  Menu,
-  MenuButton,
-  MenuItemOption,
-  MenuList,
-  MenuOptionGroup,
-  Spacer,
-  Text,
-  VStack
-} from "@chakra-ui/react";
-import { GiGuitarHead } from "react-icons/gi";
-import { IoMdMusicalNotes } from "react-icons/io";
-import { TbChevronDown } from "react-icons/tb";
+import { Button, Container, Flex, Input, Spacer } from "@chakra-ui/react";
+import { Node } from "slate";
 
+import DifficultySelect from "../../components/common/DifficultySelect";
+import InstrumentSelect from "../../components/common/InstrumentSelect";
+import TuningSelect from "../../components/common/TuningSelect";
 import TabEditor from "../../components/editor/TabEditor";
-
-const instrumentOptions = [
-  { value: "guitar", label: "Violão" },
-  { value: "eletric-guitar", label: "Guitarra" }
-];
-
-const tuningOptions = [
-  { value: "standard", label: "Padrão" },
-  { value: "drop-d", label: "Drop D" },
-  { value: "drop-c#", label: "Drop C#" },
-  { value: "drop-c", label: "Drop C" }
-];
-
-const difficultyOptions = [
-  { value: "beginner", label: "Iniciante" },
-  { value: "intermediate", label: "Intermediário" },
-  { value: "advanced", label: "Avançado" }
-];
 
 const Editor: React.FC = () => {
   const [instrument, setInstrument] = useState("guitar");
   const [tuning, setTuning] = useState("standard");
   const [difficulty, setDifficulty] = useState("beginner");
+  const [tabs, setTabs] = useState<Node[]>();
+
+  const onChangeTabs = (value: Node[]) => {
+    setTabs(value);
+  };
+
+  const onChangeInstrument = (value: string) => {
+    setInstrument(value);
+  };
+
+  const onChangeTuning = (value: string) => {
+    setTuning(value);
+  };
+
+  const onChangeDifficulty = (value: string) => {
+    setDifficulty(value);
+  };
+
+  const onSave = () => {
+    console.log(instrument, tuning, difficulty, tabs);
+  };
 
   return (
     <Container
@@ -72,94 +62,15 @@ const Editor: React.FC = () => {
         mb="4"
       />
       <Flex align="center" w="full" gap="2" wrap="wrap" mb="4">
-        <Menu>
-          <MenuButton
-            as={Button}
-            rightIcon={<TbChevronDown />}
-            size="sm"
-            variant="outline"
-          >
-            <Flex align="center" gap="2">
-              <GiGuitarHead />
-              <Text as="span">
-                {
-                  instrumentOptions.find(option => option.value === instrument)
-                    ?.label
-                }
-              </Text>
-            </Flex>
-          </MenuButton>
-          <MenuList>
-            <MenuOptionGroup value={instrument} type="radio">
-              {instrumentOptions.map(option => (
-                <MenuItemOption
-                  key={option.value}
-                  value={option.value}
-                  onClick={() => setInstrument(option.value)}
-                >
-                  {option.label}
-                </MenuItemOption>
-              ))}
-            </MenuOptionGroup>
-          </MenuList>
-        </Menu>
-        <Menu>
-          <MenuButton
-            as={Button}
-            rightIcon={<TbChevronDown />}
-            size="sm"
-            variant="outline"
-          >
-            <Flex align="center" gap="2">
-              <IoMdMusicalNotes />
-              <Text as="span">
-                {tuningOptions.find(option => option.value === tuning)?.label}
-              </Text>
-            </Flex>
-          </MenuButton>
-          <MenuList>
-            <MenuOptionGroup value={tuning} type="radio">
-              {tuningOptions.map(option => (
-                <MenuItemOption
-                  key={option.value}
-                  value={option.value}
-                  onClick={() => setTuning(option.value)}
-                >
-                  {option.label}
-                </MenuItemOption>
-              ))}
-            </MenuOptionGroup>
-          </MenuList>
-        </Menu>
+        <InstrumentSelect onChange={onChangeInstrument} />
+        <TuningSelect onChange={onChangeTuning} />
         <Spacer />
-        <Menu>
-          <MenuButton
-            as={Button}
-            rightIcon={<TbChevronDown />}
-            size="sm"
-            variant="outline"
-          >
-            {
-              difficultyOptions.find(option => option.value === difficulty)
-                ?.label
-            }
-          </MenuButton>
-          <MenuList>
-            <MenuOptionGroup defaultValue={difficulty} type="radio">
-              {difficultyOptions.map(option => (
-                <MenuItemOption
-                  key={option.value}
-                  value={option.value}
-                  onClick={() => setDifficulty(option.value)}
-                >
-                  {option.label}
-                </MenuItemOption>
-              ))}
-            </MenuOptionGroup>
-          </MenuList>
-        </Menu>
+        <DifficultySelect onChange={onChangeDifficulty} />
       </Flex>
-      <TabEditor />
+      <TabEditor onChange={onChangeTabs} />
+      <Button colorScheme="blue" size="lg" mt="8" w="full" onClick={onSave}>
+        Salvar
+      </Button>
     </Container>
   );
 };

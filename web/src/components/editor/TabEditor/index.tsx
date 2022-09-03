@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 
 import { useDisclosure } from "@chakra-ui/react";
-import { createEditor, Descendant, Element, Transforms } from "slate";
+import { createEditor, Descendant, Element, Node, Transforms } from "slate";
 import { Editable, RenderElementProps, Slate, withReact } from "slate-react";
 
 import ChordElement from "../../slate/ChordElement";
@@ -10,7 +10,7 @@ import ChordModal from "../ChordModal";
 import TabToolbar from "../TabToolbar";
 
 interface TabEditorProps {
-  onChange?: (value: string) => void;
+  onChange?: (value: Node[]) => void;
 }
 
 const initialValue: Descendant[] = [
@@ -22,7 +22,9 @@ const initialValue: Descendant[] = [
 
 const isToolbarEnabled = false;
 
-const TabEditor: React.FC<TabEditorProps> = () => {
+const TabEditor: React.FC<TabEditorProps> = ({
+  onChange = () => undefined
+}) => {
   const [editor] = useState(() => withReact(createEditor()));
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -73,6 +75,10 @@ const TabEditor: React.FC<TabEditorProps> = () => {
     onClose();
   }, []);
 
+  const onChangeTabs = (value: Node[]) => {
+    onChange(value);
+  };
+
   const renderElement = useCallback((props: RenderElementProps) => {
     switch (props.element.type) {
       case "chords":
@@ -85,7 +91,7 @@ const TabEditor: React.FC<TabEditorProps> = () => {
   }, []);
 
   return (
-    <Slate editor={editor} value={initialValue}>
+    <Slate editor={editor} value={initialValue} onChange={onChangeTabs}>
       {isToolbarEnabled && <TabToolbar onOpenChords={onOpen} />}
       <ChordModal isOpen={isOpen} onClose={onClose} onSelect={onSelectChord} />
       <Editable
