@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "JsonWebToken" do
+describe JsonWebToken do
   describe ".encode" do
     context "when payload is valid" do
       let(:payload) { { user_id: 1 } }
@@ -25,10 +25,14 @@ describe "JsonWebToken" do
       let(:payload) { { user_id: 1 } }
       let(:token) { JsonWebToken.encode(payload) }
 
-      it "returns a valid payload" do
-        decoded_payload = JsonWebToken.decode(token)
-        expect(decoded_payload).to have_key(:user_id)
-        expect(decoded_payload[:user_id]).to eq(1)
+      it "has an user_id key" do
+        decoded = JsonWebToken.decode(token)
+        expect(decoded).to have_key(:user_id)
+      end
+
+      it "has a valid user_id" do
+        user_id = JsonWebToken.decode(token)[:user_id]
+        expect(user_id).to eq(1)
       end
     end
 
