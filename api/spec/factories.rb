@@ -9,4 +9,30 @@ FactoryBot.define do
     created_at { Time.now }
     updated_at { Time.now }
   end
+
+  factory :artist do
+    name { "The Beatles" }
+    created_at { Time.now }
+    updated_at { Time.now }
+  end
+
+  factory :song do
+    name { "Yesterday" }
+    genre { "Rock" }
+    artist
+    created_at { Time.now }
+    updated_at { Time.now }
+  end
+
+  factory :version do
+    name { "Principal" }
+    song
+    user
+    instrument { "guitar" }
+    tuning { "standard" }
+    difficulty { "beginner" }
+    tabs { "[{}]" }
+    created_at { Time.now }
+    updated_at { Time.now }
+  end
 end
