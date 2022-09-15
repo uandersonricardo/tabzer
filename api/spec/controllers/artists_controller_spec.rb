@@ -119,14 +119,6 @@ describe ArtistsController do
         before { put :update, params: valid_params.merge(id: Artist.first.id) }
 
         it { is_expected.to respond_with 204 }
-
-        it "returns an artist" do
-          expect(response.body).not_to be_nil
-        end
-
-        it "returns the correct artist" do
-          expect(Artist.first.name).to eq("Artist 2")
-        end
       end
 
       context "when invalid params" do
